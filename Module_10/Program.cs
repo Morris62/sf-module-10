@@ -4,38 +4,43 @@ internal class Program
 {
     private static void Main(string[] args)
     {
-        IMessenger<Phone> viberInPhone = new Viber<Phone>();
-        
-        IMessenger<IPhone> viberInIPhone = new Viber<Phone>();
-
-        viberInPhone.DeviceInfo(new Phone());
-        viberInIPhone.DeviceInfo(new IPhone());
-
-        Console.ReadKey();
+        IGarageManager<Car, Garage> garageManager1 = new GarageManagerBase();
+        IGarageManager<Truck, Garage> garageManager2 = new GarageManagerBase();
+        IGarageManager<Truck, House> garageManager3 = new GarageManagerBase();
     }
 
-    public interface IMessenger<in T>
-    {
-        void DeviceInfo(T device);
-    }
-
-    public class Phone
+    private class Car
     {
     }
 
-    public class IPhone : Phone
+    private class Truck : Car
     {
     }
 
-    public class Computer
+    private class Garage : House
     {
     }
 
-    public class Viber<T> : IMessenger<T> where T : Phone, new()
+    private class House
     {
-        public void DeviceInfo(T device)
+    }
+
+    private interface IGarageManager<in T, out Z>
+    {
+        void Add(T car);
+        Z GetGarageInfo();
+    }
+
+    private class GarageManagerBase : IGarageManager<Car, Garage>
+    {
+        public void Add(Car car)
         {
-            Console.WriteLine(device);
+            throw new NotImplementedException();
+        }
+
+        public Garage GetGarageInfo()
+        {
+            throw new NotImplementedException();
         }
     }
 }
