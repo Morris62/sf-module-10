@@ -2,17 +2,41 @@
 
 class Program
 {
-    class Worker : IWorker
+    class FileManager : IWriter, IReader, IMailer
     {
-        void IWorker.Build()
+        void IWriter.Write()
         {
-            Console.WriteLine("Worker");
+            Console.WriteLine("Запись в файл...");
+        }
+
+        void IReader.Read()
+        {
+            Console.WriteLine("Чтение файла...");
+        }
+
+        void IMailer.SendEmail()
+        {
+            Console.WriteLine("Отправка электронной почты..");
+        }
+
+        public void Search(string text)
+        {
+            Console.WriteLine($"Поиск {text}");
         }
     }
 
     static void Main(string[] args)
     {
-        var worker = new Worker();
-        ((IWorker)worker).Build();
+        var fileManager = new FileManager();
+        IReader reader = new FileManager();
+        IWriter writer = new FileManager();
+        IMailer mailer = new FileManager();
+        
+        reader.Read();
+        writer.Write();
+        mailer.SendEmail();
+        fileManager.Search("Найди меня");
+
+        Console.ReadKey();
     }
 }
