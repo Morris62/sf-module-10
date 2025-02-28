@@ -5,17 +5,18 @@ internal class Program
     private static void Main(string[] args)
     {
         IMessenger<Phone> viberInPhone = new Viber<Phone>();
-        IMessenger<Phone> viberInIPhone = new Viber<IPhone>();
+        
+        IMessenger<IPhone> viberInIPhone = new Viber<Phone>();
 
-        viberInPhone.DeviceInfo();
-        viberInIPhone.DeviceInfo();
+        viberInPhone.DeviceInfo(new Phone());
+        viberInIPhone.DeviceInfo(new IPhone());
 
         Console.ReadKey();
     }
 
-    public interface IMessenger<out T>
+    public interface IMessenger<in T>
     {
-        T DeviceInfo();
+        void DeviceInfo(T device);
     }
 
     public class Phone
@@ -32,11 +33,9 @@ internal class Program
 
     public class Viber<T> : IMessenger<T> where T : Phone, new()
     {
-        public T DeviceInfo()
+        public void DeviceInfo(T device)
         {
-            var device = new T();
             Console.WriteLine(device);
-            return device;
         }
     }
 }
