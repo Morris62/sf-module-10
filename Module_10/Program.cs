@@ -2,17 +2,17 @@
 
 class Program
 {
-    class Writer : IWriter
+    class Worker : IWorker
     {
-        void IWriter.Write()
+        public void Build()
         {
-            Console.WriteLine("Writer");
+            Console.WriteLine("Worker");
         }
     }
 
     static void Main(string[] args)
     {
-        var writer = new Writer();
-        ((IWriter)writer).Write();
+        var worker = new Worker();
+        worker.Build();
     }
 }
