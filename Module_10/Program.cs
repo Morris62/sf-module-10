@@ -4,33 +4,18 @@ internal class Program
 {
     private static void Main()
     {
-        var user = new User();
-        var account = new Account();
-        IUpdater<Account> updater = new UserService();
-        
-        var userService = new UserService();
-        userService.Update(user);
-        userService.Update(account);
-    }
+        ILogger logger = new Logger();
+        IConsoleReader<int> reader = new ConsoleReader(logger);
+        ICalculations<int> calculator = new Calculator(logger);
 
-    private class User
-    {
-    }
+        var a = reader.Read("a");
+        var b = reader.Read("b");
 
-    private class Account : User
-    {
-    }
+        calculator.Sum(a, b);
+        calculator.Substract(a, b);
+        calculator.Multiply(a, b);
+        calculator.Divide(a, b);
 
-    public interface IUpdater<in T>
-    {
-        void Update(T entity);
-    }
-
-    private class UserService : IUpdater<User>
-    {
-        public void Update(User entity)
-        {
-            throw new NotImplementedException();
-        }
+        Console.ReadKey();
     }
 }
