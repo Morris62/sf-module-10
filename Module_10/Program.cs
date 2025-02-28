@@ -4,7 +4,7 @@ class Program
 {
     class Worker : IWorker
     {
-        public void Build()
+        void IWorker.Build()
         {
             Console.WriteLine("Worker");
         }
@@ -13,6 +13,6 @@ class Program
     static void Main(string[] args)
     {
         var worker = new Worker();
-        worker.Build();
+        ((IWorker)worker).Build();
     }
 }
