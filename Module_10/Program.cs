@@ -2,43 +2,33 @@
 
 internal class Program
 {
-    private static void Main(string[] args)
+    private static void Main()
     {
-        IGarageManager<Car, Garage> garageManager1 = new GarageManagerBase();
-        IGarageManager<Truck, Garage> garageManager2 = new GarageManagerBase();
-        IGarageManager<Truck, House> garageManager3 = new GarageManagerBase();
+        var user = new User();
+        var account = new Account();
+        IUpdater<Account> updater = new UserService();
+        
+        var userService = new UserService();
+        userService.Update(user);
+        userService.Update(account);
     }
 
-    private class Car
-    {
-    }
-
-    private class Truck : Car
-    {
-    }
-
-    private class Garage : House
+    private class User
     {
     }
 
-    private class House
+    private class Account : User
     {
     }
 
-    private interface IGarageManager<in T, out Z>
+    public interface IUpdater<in T>
     {
-        void Add(T car);
-        Z GetGarageInfo();
+        void Update(T entity);
     }
 
-    private class GarageManagerBase : IGarageManager<Car, Garage>
+    private class UserService : IUpdater<User>
     {
-        public void Add(Car car)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Garage GetGarageInfo()
+        public void Update(User entity)
         {
             throw new NotImplementedException();
         }
