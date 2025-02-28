@@ -2,17 +2,17 @@
 
 class Program
 {
-    private static ILogger Logger;
+    class Writer : IWriter
+    {
+        void IWriter.Write()
+        {
+            Console.WriteLine("Writer");
+        }
+    }
 
     static void Main(string[] args)
     {
-        Logger = new Logger();
-        var worker1 = new Worker1(Logger);
-        var worker2 = new Worker2(Logger);
-        var worker3 = new Worker3(Logger);
-
-        worker1.Work();
-        worker2.Work();
-        worker3.Work();
+        var writer = new Writer();
+        ((IWriter)writer).Write();
     }
 }
